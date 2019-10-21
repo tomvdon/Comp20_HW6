@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<title>Assignment 6</title>
+	<style type="text/css">
+		body{
+			text-align: center;
+		}
+		div.wrap{
+			display: inline-block;
+		}
+		ul{
+			list-style-type: none;
+			padding: 0;
+		}
+		li{
+			margin-left: 10px;
+			display: inline;
+		}
+		img{
+			width:100%;
+			height:auto;
+			max-height: 100%;
+		}
+		li img{
+			max-height: 150px;
+			max-width: 150px;
+		}
+		div.large_img{
+			display: none; 
+			position: relative;
+			height: auto;
+			width: 800px;
+		}
+		div.info_pane{
+			font-family: sans-serif;
+			padding-top: 20%;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			font-size: 3em;
+			position: absolute;
+			display: none;
+			left: 0; 
+			right: 0;
+			top: 0;
+			bottom:0;
+			opacity: 0.9;
+			background: #000;
+			z-index: 9;
+		}
+
+	</style>
+
+	<script type="text/javascript">
+
+		function gal_obj(name, price, small, large)
+		{
+			this.name = name
+			this.price = price
+			this.small = small
+			this.large = large
+		}
+
+
+		function create_array()
+		{
+			var gal_array = [];
+			gal_array[0] = new gal_obj("Nighthawks",3000,"Nighthawks.jpg","Nighthawks.jpg")
+			gal_array[1] = new gal_obj("A Canal in Bruges at Dusk",42000,"Canal.jpg","Canal.jpg")
+			gal_array[2] = new gal_obj("The Great Wave off Kanagawa",471000,"Wave.jpg","Wave.jpg")
+			gal_array[3] = new gal_obj("No. 5, 1948",140000000,"No.5.jpg","No.5.jpg")
+			gal_array[4] = new gal_obj("Grainstacks, end of day, Autumn",55000000,"Grainstacks.jpg","Grainstacks.jpg")
+			return gal_array
+		}
+
+
+		function create_thumbs(gal_array)
+		{
+			for (i = 0; i < gal_array.length; i++)
+				$("#img_list").append("<li><img src=" + gal_array[i].small + "></li>")
+		}
+		
+
+		$(document).ready(function()
+		{
+			gal_array = create_array()
+			create_thumbs(gal_array)
+			
+
+			$("li").hover(function()
+			{
+				i = $(this).index()
+				$("#large_image").append("<img id='art' src=" + gal_array[i].large + ">");
+				$("#large_image").fadeIn(1000);
+			},
+			function()
+			{
+				$("#large_image").find("img").last().remove();
+				$("#large_image").hide();
+				$("#info_pane").stop(false,true);
+
+			})
+
+
+			$("li").click(function()
+			{
+				i = $(this).index()
+				$("#info_pane").html("" + gal_array[i].name + "<br/> $"+ gal_array[i].price.toFixed(0));
+				// This was originally a .fadeout(5000) which looked better 
+				//     but as the spec said to hide  now there is no animation
+				$("#info_pane").show().fadeOut( 5000 );
+			})
+		})
+	</script>
+</head>
+<body>
+	<div class="wrap">
+		<div id="small_div">
+			<ul id="img_list">
+				
+			</ul>
+		</div>
+			<div class="large_img" id="large_image">
+			<div class="info_pane" id="info_pane">
+			</div>
+			</div>
+	</div>
+		
+
+</body>
+</html>
