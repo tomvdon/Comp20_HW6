@@ -109,8 +109,6 @@
 			{
 				i = $(this).index()
 				$("#info_pane").html("" + gal_array[i].name + "<br/> $"+ gal_array[i].price.toFixed(0));
-				// This was originally a .fadeout(5000) which looked better 
-				//     but as the spec said to hide  now there is no animation
 				$("#info_pane").show().fadeOut( 5000 );
 			})
 		})
